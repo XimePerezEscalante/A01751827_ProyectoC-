@@ -7,7 +7,7 @@ Left 4 Dead y Left 4 Dead 2 están ubicados en un apocalipsis zombie, donde hay 
 
 <h2>CÓMO DEJARÍA DE FUNCIONAR EL PROGRAMA</h2>
 Esto ocurriría en caso de:
-- No incluir los headers en el main
+\n- No incluir los headers en el main
 - Tener errores de sintaxis
 - No programar las clases de manera correcta
 - No revisar las consideraciones
