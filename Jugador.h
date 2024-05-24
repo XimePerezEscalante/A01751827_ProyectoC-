@@ -6,7 +6,7 @@ using namespace std;
 
 //Declaración de clase Jugador
 class Jugador{
-		//Declaración de los atributos
+    //Declaración de los atributos
 private:
     string nombre;
     float vida;
@@ -40,7 +40,7 @@ Jugador::Jugador(string name, float health){
 */
 void Jugador::ataque(Jugador player){
     player.recibeAtaque(5.0);
-    cout << getNombre() << " atacó AA " << player.getNombre() << endl;
+    cout << getNombre() << " atacó a " << player.getNombre() << endl;
 }
 
 /**
@@ -52,7 +52,6 @@ void Jugador::recibeAtaque(float danio){
     if (getVida() > 0){
         setVida(getVida() - danio);
         cout << "Jugador " << getNombre() << " -" << danio <<  " vida." << endl;
-        cout << getVida() << endl;
     }
     else{
         cout << getNombre() << " ha muerto." << endl;
@@ -61,7 +60,7 @@ void Jugador::recibeAtaque(float danio){
 
 //Declaración de clase Sobreviviente que deriva de Jugador
 class Sobreviviente:public Jugador{
-		//Declaración de los métodos
+    //Declaración de los métodos
 public:
     Sobreviviente():Jugador("Bot",100.0){}
     Sobreviviente(string name,float health):Jugador(name,health){}
@@ -69,7 +68,7 @@ public:
     void ataque(Jugador); //Uso de sobreescritura
     void recibeAtaque(float); //Uso de sobreescritura
  };
- 
+
  /**
  *Uso de sobreescritura
  *Recibe un objeto de tipo Jugador
@@ -90,11 +89,9 @@ void Sobreviviente::ataque(Jugador infected){
  *No devuelve nada.
  */
 void Sobreviviente::recibeAtaque(float danio){
-    cout << getVida() << endl;
     if (getVida() > 0){
         setVida(getVida() - danio);
         cout << getNombre() << " -" << danio <<  " vida." << endl;
-        cout << getVida() << endl;
         if (getVida() <= 30){
             cout << getNombre() << " está muriendo." << endl;
         }
@@ -106,10 +103,6 @@ void Sobreviviente::recibeAtaque(float danio){
 
 //Declaración de clase Infectado que deriva de Jugador
 class Infectado:public Jugador{
-    //Declaración de los atributos
-private:
-    string nombre;
-    float vida;
     //Declaración de los métodos
 public:
     Infectado():Jugador("Infectado Común",50.0){}
@@ -124,12 +117,13 @@ public:
 */
 
 void Infectado::ataque(Sobreviviente survivor){
+    cout << getNombre() << " atacó a " << survivor.getNombre() << endl;
     survivor.recibeAtaque(5.0);
 }
 
 //Declaración de clase InfectadoEspecial que deriva de Infectado
 class InfectadoEspecial:public Infectado{
-		//Declaración de los atributos
+    //Declaración de los atributos
 private:
     string habilidad;
     //Declaración de los métodos
@@ -152,7 +146,7 @@ InfectadoEspecial::InfectadoEspecial(string hab,string name,float health):Infect
 /**
  *Uso de sobreescritura
  *Recibe un objeto de tipo Sobreviviente
- *Sependiendo del tipo de infectado es el daño que hará y el mensaje que imprimirá
+ *Dependiendo del tipo de infectado es el daño que hará y el mensaje que imprimirá
  *No devuelve nada
  */
 void InfectadoEspecial::ataque(Sobreviviente survivor){
