@@ -13,7 +13,7 @@ private:
     //Declaración de los métodos
 public:
     Jugador();
-    Jugador(string,float);
+    Jugador(string,float); //Sobrecarga
     void ataque(Jugador);
     void recibeAtaque(float);
     void setVida(float health){vida = health;}
@@ -63,8 +63,8 @@ class Sobreviviente:public Jugador{
     //Declaración de los métodos
 public:
     Sobreviviente():Jugador("Bot",100.0){}
-    Sobreviviente(string name,float health):Jugador(name,health){}
-    Sobreviviente(string name):Jugador(name,100.0){} //Uso de sobrecarga
+    Sobreviviente(string name,float health):Jugador(name,health){} //Sobrecarga
+    Sobreviviente(string name):Jugador(name,100.0){} //Sobrecarga
     void ataque(Jugador); //Uso de sobreescritura
     void recibeAtaque(float); //Uso de sobreescritura
  };
@@ -129,7 +129,7 @@ private:
     //Declaración de los métodos
 public:
     InfectadoEspecial();
-    InfectadoEspecial(string,string,float);
+    InfectadoEspecial(string,string,float); //Sobrecarga
     void ataque(Sobreviviente); //Uso de sobreescritura
     string getHabilidad();
     void setHabilidad(string);
@@ -146,7 +146,7 @@ InfectadoEspecial::InfectadoEspecial(string hab,string name,float health):Infect
 /**
  *Uso de sobreescritura
  *Recibe un objeto de tipo Sobreviviente
- *Dependiendo del tipo de infectado es el daño que hará y el mensaje que imprimirá
+ *Dependiendo del tipo de infectado es el daño que hará (todavía no está hecho) y el mensaje que imprimirá.
  *No devuelve nada
  */
 void InfectadoEspecial::ataque(Sobreviviente survivor){
