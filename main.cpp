@@ -36,7 +36,7 @@ int main(){
   int opcion;
   string name, user;
 
-  cout << "LEFT 4 DEAD (versión barata)\nContexto: En tu equipo habrá cuatro sobrevivientes, haz lo mejor posible para completar el nivel.\n¿Cuál es tu nombre?\n> " << endl;
+  cout << "LEFT 4 DEAD (versión barata)\nContexto: En tu equipo habrá cuatro sobrevivientes, haz lo mejor posible para completar el nivel.\n¿Cuál es tu nombre?\n" << endl;
   cin >> user;
   cout << "¿Quieres jugar con los personajes del primer o segundo juego? (Escribe 1 o 2)\n " << endl;
 
