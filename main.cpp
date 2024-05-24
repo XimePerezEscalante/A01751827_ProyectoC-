@@ -2,6 +2,9 @@
 #include "Jugador.h"
 using namespace std;
 
+/**
+*Función para convertir de int a string el personaje que escoja el usuario.
+*/
 string nombreSob(int select){
     //string name;
     if (select == 1){
@@ -32,6 +35,7 @@ string nombreSob(int select){
         return "Rochelle";
     }
 }
+
 int main(){
   int opcion;
   string name, user;
