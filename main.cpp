@@ -53,7 +53,8 @@ int main(){
   }
 
   Sobreviviente usuario(user + " (" + name + ")",100.0);
-
+    
+  //Pruebas para ver que funcione el programa
   cout << usuario.getNombre() << endl;
 
   Infectado inf1;
