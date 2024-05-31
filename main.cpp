@@ -37,7 +37,7 @@ string nombreSob(int select){
 }
 
 int main(){
-  int opcion;
+    int opcion;
     string name, user;
     Jugador * equipo[4];
     
