@@ -9,7 +9,6 @@
 #define Arma_h
 
 #include <iostream>
-#include "Municion.h"
 using namespace std;
 
 //Declaración de clase Arma
