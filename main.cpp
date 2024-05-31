@@ -90,7 +90,7 @@ int main(){
     Jugador *tank = new InfectadoEspecial("Lanzar objetos y jugadores","Tank",3000.0);
     inf1->ataque(usuario);
     tank->ataque(equipo[0]);
-    
-    usuario->ataque(inf1);
-    usuario->ataque(tank);
+    inf1->ataque(equipo[3]);
+    usuario->disparar(inf1,2);
+    usuario->disparar(tank,0);
 }
