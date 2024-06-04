@@ -1,5 +1,5 @@
-#ifndef Jugador_h
-#define Jugador_h
+#ifndef JUGADOR_H
+#define JUGADOR_H
 
 #include <iostream>
 #include "Arma.h"
