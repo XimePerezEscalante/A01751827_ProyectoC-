@@ -5,8 +5,8 @@
 //  Created by Ximena Perez Escalante on 27/05/24.
 //
 
-#ifndef Arma_h
-#define Arma_h
+#ifndef ARMA_H
+#define ARMA_H
 
 #include <iostream>
 using namespace std;
