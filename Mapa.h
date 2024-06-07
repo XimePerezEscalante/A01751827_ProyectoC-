@@ -9,7 +9,7 @@
 #define MAPA_H
 
 #include <iostream>
-#include "Infectado.h"
+#include "Jugador.h"
 
 using namespace std;
 
