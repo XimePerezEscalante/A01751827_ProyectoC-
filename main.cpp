@@ -86,6 +86,7 @@ int main(){
     }
 
     //Pruebas para ver que funcione el programa
+    cout << "PRUEBAS:" << endl;
     Jugador *inf1 = new Infectado();
     Jugador *tank = new InfectadoEspecial("Lanzar objetos y jugadores","Tank",3000.0);
     inf1->ataque(usuario);
@@ -93,4 +94,5 @@ int main(){
     inf1->ataque(equipo[3]);
     usuario->disparar(inf1,2);
     usuario->disparar(tank,0);
+    usuario->curar(equipo[0],"Botiquín");
 }
