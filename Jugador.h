@@ -6,24 +6,30 @@
 
 using namespace std;
 
-//Declaración de clase Jugador
+//Declaración de clase Jugador que es abstracta
 class Jugador{
-    //Declaración de atributos
 private:
     string nombre;
+    string items[3];
     float vida;
-    //Declaración de métodos
+public:
+    Arma armas[2];
 public:
     Jugador();
     Jugador(string,float);
-    Arma armas[2];
     virtual void ataque(Jugador*);
-    virtual void recibeAtaque(float);
-    virtual void disparar(Jugador*,int);
+    virtual void recibeAtaque(float) = 0;
+    void agregaArma(Arma, int);
+    void disparar(Jugador*,int);
+    void curar(Jugador*, string);
+    Arma getArma(int indice){return armas[indice];}
     void setVida(float health){vida = health;}
     void setNombre(string name){nombre = name;}
     float getVida(){return vida;}
     string getNombre(){return nombre;}
+    void setItems(string it, int indice){items[indice] = it;}
+    string getItems(int indice){return items[indice];}
+    
 };
 
 Jugador::Jugador(){
@@ -34,10 +40,101 @@ Jugador::Jugador(){
 Jugador::Jugador(string name, float health){
     nombre = name;
     vida = health;
+    items[0] = "-";
+    items[1] = "-";
+    items[2] = "Botiquín";
 }
 
-void Jugador::disparar(Jugador* infected,int indice){
-    cout << "No disponible" << endl;
+void Jugador::agregaArma(Arma weapon,int indice){
+    armas[indice] = weapon;
+    cout << weapon.getNombre() << "agregada al inventario" << endl;
+    cout << armas[indice].getNombre() << "ahora en el inventario" << endl;
+}
+
+
+void Jugador::disparar(Jugador * infected, int indice){
+    if (armas[indice].getAmmoTotal() > 0){
+        if (armas[indice].getAmmoDisp() > 0) {
+            cout << "BOOM!" << endl;
+            armas[indice].disparo();
+            if (armas[indice].getNombre() == "Pistola"){
+                infected->recibeAtaque(30.5);
+            }
+            else if (armas[indice].getNombre() == "Magnum"){
+                infected->recibeAtaque(80.5);
+            }
+            else if (armas[indice].getNombre() == "Rifle"){
+                infected->recibeAtaque(90.5);
+            }
+            else if (armas[indice].getNombre() == "Escopeta"){
+                infected->recibeAtaque(100.0);
+            }
+            //getArma(indice).setAmmoDisp(armas[indice].getAmmoDisp() - 1);
+        }
+        else {
+            cout << "Debes recargar" << endl;
+        }
+    }
+    else{
+        cout << "Ya no tienes munición\n" << endl;
+    }
+    cout << "Ammo: " << armas[indice].getAmmoDisp() << endl;
+}
+
+/**
+ *Recibe un apuntador de tipo Jugador.
+ *Se imprime un mensaje diferente dependiendo de si el sobreviviente se cura a sí mismo o a alguien más, después se le agrega el
+ *80% de la vida que le falta, se muestra la vida que tiene después de ser curado y al sobreviviente que curó se le cambia el item
+ *"Botiquín" por "-".
+ *No devuelve nada.
+ */
+void Jugador::curar(Jugador* survivor, string itm){
+    if (getNombre() == survivor->getNombre()){
+        if (itm == "Botiquín"){
+            cout << getNombre() << " se está curando" << endl;
+            setVida( getVida() + (100.0 - getVida()) * 0.8);
+            cout << getNombre() << " " << getVida() << " vida" << endl;
+            setItems("-", 2);
+        }
+        else if (itm == "Pastillas"){
+            cout << getNombre() << " tomó pastillas" << endl;
+            setVida( getVida() + (100.0 - getVida()) * 0.5);
+            cout << getNombre() << " " << getVida() << " vida" << endl;
+            setItems("-", 1);
+        }
+        else if (itm == "Adrenalina"){
+            cout << getNombre() << " se inyectó adrenalina" << endl;
+            setVida( getVida() + (100.0 - getVida()) * 0.25);
+            cout << getNombre() << " " << getVida() << " vida" << endl;
+            setItems("-", 1);
+        }
+        else{
+            cout << "Sólo puedes usar un desfibrilador en tus compañeros." << endl;
+        }
+    }
+    else{
+        if (itm == "Botiquín"){
+            cout << getNombre() << " curó a " << survivor->getNombre() << endl;
+            survivor->setVida( survivor->getVida() + (100.0 - survivor->getVida()) * 0.8);
+            cout << survivor->getNombre() << " " << survivor->getVida() << " vida" << endl;
+            setItems("-", 2);
+        }
+        else if (itm == "Pastillas"){
+            cout << getNombre() << " le dio pastillas a " << survivor->getNombre() << endl;
+            survivor->setItems("Pastillas", 1);
+        }
+        else if (itm == "Adrenalina"){
+            cout << getNombre() << " le dio adrenalina a " << survivor->getNombre() << endl;
+            survivor->setItems("Adrenalina", 1);
+        }
+        else{
+            cout << getNombre() << " revivió a " << survivor->getNombre() << endl;
+            survivor->setVida(50.0);
+            cout << survivor->getNombre() << " " << survivor->getVida() << " vida" << endl;
+            setItems("-", 2);
+        }
+            
+    }
 }
 
 /**
@@ -69,67 +166,18 @@ void Jugador::recibeAtaque(float danio){
 
 //Declaración de clase Sobreviviente que deriva de Jugador
 class Sobreviviente:public Jugador{
-    //Declaración de atributos
-private:
-    string items[3];
-public:
-    Arma armas[2];
     //Declaración de métodos
 public:
-    Sobreviviente();
-    Sobreviviente(string name,float health, string it1, string it2, string it3);
     Sobreviviente(string name);
     void recibeAtaque(float);
-    void disparar(Jugador*,int);
-    void curar(Jugador*);
-    void setItems(string it, int indice){items[indice] = it;}
-    string getItems(int indice){return items[indice];}
 };
 
-Sobreviviente::Sobreviviente():Jugador("Bot", 100.0){
-    items[0] = "-";
-    items[1] = "Pastillas";
-    items[2] = "Botiquín";
-}
-
-Sobreviviente::Sobreviviente(string name,float health, string it1, string it2, string it3):Jugador(name,health){
-    items[0] = it1;
-    items[1] = it2;
-    items[2] = it3;
-}
-
 Sobreviviente::Sobreviviente(string name):Jugador(name, 100.0){
-    items[0] = "-";
-    items[1] = "-";
-    items[2] = "Botiquín";
+    //items[0] = "-";
+    //items[1] = "-";
+    //items[2] = "Botiquín";
 }
 
-/**
- *Recibe un apuntador de tipo Jugador
- *Usa el método recibeAtaque() del infectado
- *Dependiendo del tipo de arma es la cantidad de daño
- *y también se le resta munición
- *
- */
-void Sobreviviente::disparar(Jugador* infected,int indice){
-    if (armas[indice].getAmmoTotal() > 0){
-        if (armas[indice].getAmmoDisp() > 0) {
-            if (armas[indice].getTipo() == "Primaria"){
-                infected->recibeAtaque(95.5);
-            }
-            else{
-                infected->recibeAtaque(75.5);
-            }
-            armas[indice].setAmmoDisp(armas[indice].getAmmoDisp() - 1);
-        }
-        else {
-            cout << "Debes recargar" << endl;
-        }
-    }
-    else{
-        cout << "Ya no tienes munición\n" << endl;
-    }
-}
 
 /**
  *Recibe la variable danio (float).
@@ -141,8 +189,7 @@ void Sobreviviente::recibeAtaque(float danio){
     cout << getVida() << endl;
     if (getVida() > 0){
         setVida(getVida() - danio);
-        cout << getNombre() << " -" << danio <<  " vida." << endl;
-        cout << getVida() << endl;
+        cout << getNombre() << " -" << danio <<  " vida = " << getVida() << endl;
         if (getVida() <= 30){
             cout << getNombre() << " está muriendo." << endl;
         }
@@ -152,27 +199,6 @@ void Sobreviviente::recibeAtaque(float danio){
     }
 }
 
-/**
- *Recibe un apuntador de tipo Jugador.
- *Se imprime un mensaje diferente dependiendo de si el sobreviviente se cura a sí mismo o a alguien más, después se le agrega el
- *80% de la vida que le falta, se muestra la vida que tiene después de ser curado y al sobreviviente que curó se le cambia el item
- *"Botiquín" por "-".
- *No devuelve nada.
- */
-void Sobreviviente::curar(Jugador* survivor){
-    if (getNombre() == survivor->getNombre()){
-        cout << getNombre() << " se está curando" << endl;
-        setVida( getVida() + (100 - getVida()) * 0.8);
-        cout << getNombre() << " " << getVida() << " vida" << endl;
-    }
-    else{
-        cout << getNombre() << " curó a " << survivor->getNombre() << endl;
-        survivor->setVida( survivor->getVida() + (100 - survivor->getVida()) * 0.8);
-        cout << survivor->getNombre() << " " << survivor->getVida() << " vida" << endl;
-
-    }
-    setItems("-", 2);
-}
 
 //Declaración de clase Infectado que deriva de Jugador
 class Infectado:public Jugador{
@@ -272,7 +298,6 @@ void InfectadoEspecial::ataque(Jugador* survivor){
     }
     survivor->recibeAtaque(5.0);
 }
-
 
 
 void InfectadoEspecial::recibeAtaque(float danio){
