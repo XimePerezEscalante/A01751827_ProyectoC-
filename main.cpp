@@ -1,5 +1,7 @@
 #include <iostream>
 #include "Jugador.h"
+#include "Arma.h"
+#include "Mapa.h"
 using namespace std;
 
 /**
