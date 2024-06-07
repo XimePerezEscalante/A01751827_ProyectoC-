@@ -14,8 +14,6 @@
 using namespace std;
 
 class Mapa{
-private:
-    int numInf;
 public:
     Arma armasMapa[4];
     Jugador * equipoMapa[4];
