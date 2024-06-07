@@ -25,14 +25,15 @@ public:
     Arma();
     Arma(int, int, bool);
     void recargar();
+    void disparo();
     string getNombre(){return nombre;}
     void setNombre(string name){nombre = name;}
     string getTipo(){return tipo;}
-    void setTipo(string type){tipo = type;}
+    //void setTipo(string type){tipo = type;}
     int getAmmoTotal(){return municionTotal;}
     void setAmmoTotal(int ammo){municionTotal = ammo;}
     int getAmmoDisp(){return municionDisp;}
-    void setAmmoDisp(int ammo){municionDisp= ammo;}
+    void setAmmoDisp(int ammo){municionDisp = ammo; cout << "Has setteado\nNueva: " << getAmmoDisp() << endl;}
     bool getLAser(){return laser;}
     void setLaser(bool lsr){laser = lsr;}
 };
@@ -46,12 +47,14 @@ Arma::Arma(){
 }
 
 Arma::Arma(int name, int ammo, bool lsr){
-    string weapons[] = {"Pistola (35)","Magnum (80)","Escopeta (100)","Rifle (90)"};
+    string weapons[] = {"Pistola","Magnum","Escopeta","Rifle"};
     nombre = weapons[name];
     if (name > 1){
         tipo = "Primaria";
     }
-    else {tipo = "Secundaria";}
+    else {
+        tipo = "Secundaria";
+    }
     municionTotal = ammo;
     municionDisp = 10;
     laser = lsr;
@@ -63,9 +66,20 @@ Arma::Arma(int name, int ammo, bool lsr){
  *No devuelve nada
  */
 void Arma::recargar(){
-    setAmmoDisp(getAmmoDisp() + 10);
-    setAmmoTotal(getAmmoTotal() - 10);
+    cout << "Recargando..." << endl;
+    if (getNombre() == "Pistola" || "Magnum"){
+        setAmmoDisp(10);
+    }
+    else{
+        setAmmoTotal(getAmmoTotal() - (10 - getAmmoDisp()));
+        setAmmoDisp(10);
+    }
     cout << "Munición: " << getAmmoDisp() << "[" << getAmmoTotal() << "]" << endl;
+}
+
+void Arma::disparo(){
+    setAmmoDisp(getAmmoDisp() - 1);
+    cout << "Has disparado\n" << getAmmoDisp() << endl;
 }
 
 
