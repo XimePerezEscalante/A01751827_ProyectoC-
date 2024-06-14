@@ -380,9 +380,11 @@ public:
     void recibeAtaque(float);
 };
 
-InfectadoEspecial::InfectadoEspecial():Jugador("Jockey",100.0,true){}
+InfectadoEspecial::InfectadoEspecial():Jugador(
+"Jockey",100.0,true){}
 
-InfectadoEspecial::InfectadoEspecial(string name,float health):Jugador(name,health,true){}
+InfectadoEspecial::InfectadoEspecial(
+string name,float health):Jugador(name,health,true){}
 
 /**
  *Uso de sobreescritura
@@ -397,7 +399,8 @@ void InfectadoEspecial::ataque(Jugador* survivor){
         survivor->recibeAtaque(15.5);
     }
     else if (getNombre() == "Boomer"){
-        cout << getNombre() << " explotó y salpicó a " << survivor->getNombre() << endl;
+        cout << getNombre() << " explotó y salpicó a " << 
+            survivor->getNombre() << endl;
         survivor->recibeAtaque(0.5);
     }
     else if (getNombre() == "Spitter"){
@@ -405,23 +408,28 @@ void InfectadoEspecial::ataque(Jugador* survivor){
         survivor->recibeAtaque(25.5);
     }
     else if (getNombre() == "Charger"){
-        cout << getNombre() << " está atacando a " << survivor->getNombre() << endl;
+        cout << getNombre() << " está atacando a " << 
+            survivor->getNombre() << endl;
         survivor->recibeAtaque(35.5);
     }
     else if (getNombre() == "Hunter"){
-        cout << getNombre() << " está atacando a " << survivor->getNombre() << endl;
+        cout << getNombre() << " está atacando a " << 
+            survivor->getNombre() << endl;
         survivor->recibeAtaque(45.5);
     }
     else if (getNombre() == "Smoker"){
-        cout << getNombre() << " ha atrapado a " << survivor->getNombre() << endl;
+        cout << getNombre() << " ha atrapado a " << 
+            survivor->getNombre() << endl;
         survivor->recibeAtaque(55.5);
     }
     else if (getNombre() == "Witch"){
-        cout << getNombre() << " está atacando a " << survivor->getNombre() << endl;
+        cout << getNombre() << " está atacando a " << 
+            survivor->getNombre() << endl;
         survivor->recibeAtaque(65.5);
     }
     else if (getNombre() == "Tank"){
-        cout << getNombre() << " ha aventado a " << survivor->getNombre() << endl;
+        cout << getNombre() << " ha aventado a " << 
+            survivor->getNombre() << endl;
         survivor->recibeAtaque(75.5);
     } 
 }
