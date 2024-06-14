@@ -19,23 +19,19 @@ private:
     string tipo;
     int municionTotal;
     int municionDisp;
-    bool laser;
     //Declaración de métodos
 public:
     Arma();
     Arma(int, int, bool);
     void recargar();
     void disparo();
+    void rellenarMunicion();
     string getNombre(){return nombre;}
-    void setNombre(string name){nombre = name;}
     string getTipo(){return tipo;}
-    //void setTipo(string type){tipo = type;}
     int getAmmoTotal(){return municionTotal;}
     void setAmmoTotal(int ammo){municionTotal = ammo;}
     int getAmmoDisp(){return municionDisp;}
-    void setAmmoDisp(int ammo){municionDisp = ammo; cout << "Has setteado\nNueva: " << getAmmoDisp() << endl;}
-    bool getLAser(){return laser;}
-    void setLaser(bool lsr){laser = lsr;}
+    void setAmmoDisp(int ammo){municionDisp = ammo;}
 };
 
 Arma::Arma(){
@@ -43,10 +39,9 @@ Arma::Arma(){
     tipo = "Secundaria";
     municionTotal = 10;
     municionDisp = 10;
-    laser = false;
 }
 
-Arma::Arma(int name, int ammo, bool lsr){
+Arma::Arma(int name, int ammo){
     string weapons[] = {"Pistola","Magnum","Escopeta","Rifle"};
     nombre = weapons[name];
     if (name > 1){
@@ -57,16 +52,15 @@ Arma::Arma(int name, int ammo, bool lsr){
     }
     municionTotal = ammo;
     municionDisp = 10;
-    laser = lsr;
 }
 
 /**
- *No recibe nada
  *Le resta 10 de munición a la munición total y a la disponible le suma 10
- *No devuelve nada
+ *param
+ *return
  */
 void Arma::recargar(){
-    cout << "Recargando..." << endl;
+    cout << " ¡recargando!" << endl;
     if (getNombre() == "Pistola" || "Magnum"){
         setAmmoDisp(10);
     }
@@ -74,13 +68,37 @@ void Arma::recargar(){
         setAmmoTotal(getAmmoTotal() - (10 - getAmmoDisp()));
         setAmmoDisp(10);
     }
-    cout << "Munición: " << getAmmoDisp() << "[" << getAmmoTotal() << "]" << endl;
+    cout << "Munición: " << getAmmoDisp() << "[" << getAmmoTotal() <<
+    "]" << endl;
 }
 
+/**
+ *Imprime un mensaje y le resta 1 de munición a la munición
+ *disponible
+ *param
+ *return
+ */
 void Arma::disparo(){
     setAmmoDisp(getAmmoDisp() - 1);
-    cout << "Has disparado\n" << getAmmoDisp() << endl;
+    cout << " ha disparado\n" << endl;
 }
 
+/**
+ *Dependiendo del nombre es el total de munición
+ *total que le agregará
+ *param
+ *return
+ */
+void Arma::rellenarMunicion(){
+    if (getNombre() == "Escopeta"){
+        setAmmoTotal(80);
+    }
+    else if (getNombre() == "Rifle"){
+        setAmmoTotal(120);
+    }
+    else{
+        setAmmoTotal(10);
+    }
+}
 
-#endif /* Arma_h */
+#endif /* ARMA_H */
