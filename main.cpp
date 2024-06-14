@@ -1,100 +1,55 @@
+/*
+ * Proyecto Left 4 Dead main
+ * Ximena Pérez Escalante
+ * A01751827
+ * 14/06/2024
+ *
+ * En este proyecto se simula una partida de Left 4 Dead, en el que hay 4 sobrevivientes
+ * que deben combatir a una horda de infectados (zombies) e infectados especiales
+ * (mutaciones). En ella el usuario puede escoger si jugar con los sobrevivientes del 
+ * primer o segundo juego, además de interactuar disparándole a los infectados o curando
+ * a sus compañeros hasta que este muera.
+ */
+
 #include <iostream>
 #include "Jugador.h"
-#include "Arma.h"
 #include "Mapa.h"
+#include "Arma.h"
 using namespace std;
 
-/**
-*Función para convertir de int a string el personaje que escoja el usuario.
-*/
-string nombreSob(int select){
-    //string name;
-    if (select == 1){
-        return "Bill";
-    }
-    else if (select == 2){
-        return "Zoey";
-    }
-    else if (select == 3){
-        return "Frank";
-    }
-    else if (select == 4){
-        return "Louis";
-    }
-    else if (select == 5){
-        return "Ellis";
-    }
-    else if (select == 6){
-        return "Rochelle";
-    }
-    else if (select == 7){
-        return "Coach";
-    }
-    else if (select == 8){
-        return "Nick";
-    }
-    else{
-        return "Rochelle";
-    }
-}
-
-int main(){
+int main(int argc, const char * argv[]) {
+    
     int opcion;
-    string name, user;
-    Jugador * equipo[4];
+    string user;
+    Mapa m1;
     
-    cout << "LEFT 4 DEAD (versión barata)\nContexto: En tu equipo habrá cuatro sobrevivientes, haz lo mejor posible para completar el nivel.\n" << endl;
-    user = "Usuario";
+    cout << "LEFT 4 DEAD (versión barata)\nContexto: En tu equipo habrá cuatro sobrevivientes,
+        haz lo mejor posible para completar el nivel.\n¿Cuál es tu nombre?\n " << endl;
+    cin >> user;
     
-    cout << "¿Quieres jugar con los personajes del primer o segundo juego? (Escribe 1 o 2)\n " << endl;
+    cout << "¿Quieres jugar con los personajes del primer o segundo juego? 
+        (Escribe 1 o 2)\n " << endl;
     cin >> opcion;
     
+    while (opcion != 1 && opcion !=2){
+        cout << "Escoge 1 o 2" << endl;
+        cin >> opcion;
+    }
+    
+    m1.creaEquipo(opcion);
+    
     if (opcion == 1){
-        Jugador *zoey = new Sobreviviente("Zoey (Bot)");
-        Jugador *bill = new Sobreviviente("Bill (Bot)");
-        Jugador *louis = new Sobreviviente("Louis (Bot)");
-        Jugador *frank = new Sobreviviente("Frank (Bot)");
-        equipo[0] = bill;
-        equipo[1] = zoey;
-        equipo[2] = frank;
-        equipo[3] = louis;
-        cout << "Escoge un personaje:\n1. Bill\n2. Zoey\n3. Frank\n4. Louis\n" << endl;
+        cout << "Escoge un personaje:\n1. Zoey\n2. Bill\n3. Louis\n4. Frank\n" << endl;
         cin >> opcion;
-        name = nombreSob(opcion);
     }
-        
+    
     else{
-        Jugador *rochelle = new Sobreviviente("Rochelle (Bot)");
-        Jugador *nick = new Sobreviviente("Nick (Bot)");
-        Jugador *coach = new Sobreviviente("Coach (Bot)");
-        Jugador *ellis = new Sobreviviente("Ellis (Bot)");
-        equipo[0] = ellis;
-        equipo[1] = rochelle;
-        equipo[2] = coach;
-        equipo[3] = nick;
-        cout << "Escoge un personaje:\n1. Ellis\n2. Rochelle\n3. Coach\n4. Nick" << endl;
+        cout << "Escoge un personaje:\n1. Rochelle\n2. Nick\n3. Coach\n4. Ellis" << endl;
         cin >> opcion;
-        name = nombreSob(opcion+4);
     }
     
-    Jugador *usuario = new Sobreviviente(user + " (" + name + ")");
-    equipo[opcion-1] = usuario;
+    Jugador *usuario = new Sobreviviente(user, false);
     
-    
-    cout << "EQUIPO:" << endl;
-    
-    for (int i = 0;i < 4;i++){
-        cout << equipo[i]->getNombre() << endl;
-    }
-
-    //Pruebas para ver que funcione el programa
-    cout << "PRUEBAS:" << endl;
-    Jugador *inf1 = new Infectado();
-    Jugador *tank = new InfectadoEspecial("Lanzar objetos y jugadores","Tank",3000.0);
-    inf1->ataque(usuario);
-    tank->ataque(equipo[0]);
-    inf1->ataque(equipo[3]);
-    usuario->disparar(inf1,2);
-    usuario->disparar(tank,0);
-    usuario->curar(equipo[0],"Botiquín");
+    m1.agregaUsuario(usuario, opcion);
+    m1.partida();
 }
