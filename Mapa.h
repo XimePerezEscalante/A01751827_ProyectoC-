@@ -65,8 +65,8 @@ Mapa::Mapa(){
  *Uso de composición con la clase Sobreviviente
  *Función que crea el equipo de 4 sobrevivientes y los agrega al arreglo de
  *apuntadores llamado personajes
- *Recibe un int con el número del juego del que se crearán los personajes
- *No devuelve nada
+ *param int debe ser 1 o 2 para saber de qué juego serán los personajes
+ *return
  */
 void Mapa::creaEquipo(int opcion){
     if (opcion == 1){
@@ -270,6 +270,12 @@ void Mapa::accion(string tecla){
     }
 }
 
+/**
+ *Función para que los bots puedan curarse entre ellos y se le recuerde al jugador
+ *que también los puede curar
+ *param
+ *return
+ */
 void Mapa::curarMutuo(){
     int seleccionInt;
     if (personajes[numSobreviviente]->getVida() < 50){
