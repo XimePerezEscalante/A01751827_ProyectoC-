@@ -37,15 +37,10 @@ public:
 };
 
 Mapa::Mapa(){
-    Arma pist(0,30,false);
-    Arma mag(1,30,false);
-    Arma esc(2,80,false);
-    Arma rif(3,120,false);
-    
-    armasMapa[0] = pist;
-    armasMapa[1] = mag;
-    armasMapa[2] = esc;
-    armasMapa[3] = rif;
+    armasMapa[0] = pist(0,30);
+    armasMapa[1] = mag(1,30);
+    armasMapa[2] = esc(2,80);
+    armasMapa[3] = rif(3,120);
     
     for (int i = 4;i < 16;i++){
         personajes[i] = new Infectado();
