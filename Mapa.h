@@ -199,9 +199,10 @@ void Mapa::escogeItems(){
 }
 
 /**
- *Función para mandar a llamar a la función que el usuario haya seleccionado según la 
- *tecla
- *param: string tecla debe ser "d", "D", "c", "C", "r", "R", "1", "2", "3", "4", o "5"
+ *Función para mandar a llamar a la función que el usuario haya seleccionado 
+ *según la tecla
+ *param: string tecla debe ser "d", "D", "c", "C", "r", "R", "1", "2", "3", 
+ *"4", o "5"
  *return
  */
 void Mapa::accion(string tecla){
@@ -209,14 +210,17 @@ void Mapa::accion(string tecla){
         cout << "bruh" << endl;
         if (personajes[indiceUsuario]->getInvSelec() == 2){
             if (personajes[indiceUsuario]->getItems(0) == "Bomba"){
-                cout << personajes[indiceUsuario]->getNombre() << " lanzó una bomba" << endl;
+                cout << personajes[indiceUsuario]->getNombre() << 
+                    " lanzó una bomba" << endl;
             }
             else if (personajes[indiceUsuario]->getItems(0) == "Molotov"){
-                cout << personajes[indiceUsuario]->getNombre() << " lanzó un molotov" << endl;
+                cout << personajes[indiceUsuario]->getNombre() << 
+                    " lanzó un molotov" << endl;
                 }
             
             for (int i = 0;i < 4;i++){
-                personajes[indiceUsuario]->ataque(personajes[numPersonaje + i]);
+                personajes[indiceUsuario]->ataque(
+                    personajes[numPersonaje + i]);
             }
             personajes[indiceUsuario]->setInvSelec(1);
         }
@@ -229,7 +233,8 @@ void Mapa::accion(string tecla){
             cout << "Selecciona un arma para recargar" << endl;
         }
         else{
-            personajes[indiceUsuario]->armas[personajes[indiceUsuario]->getInvSelec()].recargar();
+            personajes[indiceUsuario]->armas[personajes[indiceUsuario]->
+                getInvSelec()].recargar();
         }
     }
     if (tecla == "c" || tecla == "C"){
@@ -250,29 +255,34 @@ void Mapa::accion(string tecla){
     }
     if (tecla == "1"){
         personajes[indiceUsuario]->setInvSelec(1);
-        cout << personajes[indiceUsuario]->armas[0].getNombre() << " seleccionad@" << endl;
+        cout << personajes[indiceUsuario]->armas[0].getNombre() <<
+            " seleccionad@" << endl;
     }
     if (tecla == "2"){
         personajes[indiceUsuario]->setInvSelec(2);
-        cout << personajes[indiceUsuario]->armas[1].getNombre() << " seleccionad@" << endl;
+        cout << personajes[indiceUsuario]->armas[1].getNombre() <<
+            " seleccionad@" << endl;
     }
     if (tecla == "3"){
         personajes[indiceUsuario]->setInvSelec(3);
-        cout << personajes[indiceUsuario]->getItems(0)<< " seleccionad@" << endl;
+        cout << personajes[indiceUsuario]->getItems(0) << 
+            " seleccionad@" << endl;
     }
     if (tecla == "4"){
         personajes[indiceUsuario]->setInvSelec(4);
-        cout << personajes[indiceUsuario]->getItems(1)<< " seleccionad@" << endl;
+        cout << personajes[indiceUsuario]->getItems(1)<< 
+            " seleccionad@" << endl;
     }
     if (tecla == "5"){
         personajes[indiceUsuario]->setInvSelec(5);
-        cout << personajes[indiceUsuario]->getItems(2)<< " seleccionad@" << endl;
+        cout << personajes[indiceUsuario]->getItems(2)<< 
+            " seleccionad@" << endl;
     }
 }
 
 /**
- *Función para que los bots puedan curarse entre ellos y se le recuerde al jugador
- *que también los puede curar
+ *Función para que los bots puedan curarse entre ellos y se 
+ *le recuerde al jugador que también los puede curar
  *param
  *return
  */
@@ -280,36 +290,49 @@ void Mapa::curarMutuo(){
     int seleccionInt;
     if (personajes[numSobreviviente]->getVida() < 50){
         //Si no tiene items de salud no se puede curar
-        if (personajes[numSobreviviente]->getItems(1) == "-" && personajes[numSobreviviente]->getItems(2) == "-"){
+        if (personajes[numSobreviviente]->getItems(1) == "-" && 
+            personajes[numSobreviviente]->getItems(2) == "-"){
             //Se checa si los otros jugadores bots tienen items de salud
             for (int i = 0;i < 4;i++){
                 if (personajes[i]->getBot() == true){
-                    //Se le da prioridad al botiquín, si lo tiene, cura al infectado con poca salud
-                    if (personajes[i]->getItems(1) == "Botiquín"){personajes[i]->curar(personajes[numSobreviviente], "Botiquín");
+                    //Se le da prioridad al botiquín, si lo tiene, 
+                    //cura al infectado con poca salud
+                    if (personajes[i]->getItems(1) == "Botiquín"){personajes[i]->curar(
+                        personajes[numSobreviviente], "Botiquín");
                     }
                     //Se checa si tiene pastillas o adrenalina
                     else{
                         if (personajes[i]->getItems(2) != "-"){
-                            //Cura al sobreviviente pero como en el método sólo le dan los items...
-                            personajes[i]->curar(personajes[numSobreviviente], personajes[i]->getItems(2));
+                            //Cura al sobreviviente pero como en el método sólo 
+                            //le dan los items...
+                            personajes[i]->curar(personajes[numSobreviviente], 
+                                personajes[i]->getItems(2));
                             //El sobreviviente debe curarse solo
-                            personajes[numSobreviviente]->curar(personajes[numSobreviviente], personajes[numSobreviviente]->getItems(2));
+                            personajes[numSobreviviente]->
+                                curar(personajes[numSobreviviente], 
+                                personajes[numSobreviviente]->getItems(2));
                         }
                         //Si el usuario tiene items de salud se le sugiere curarlo
                         else{
                             //Se le da prioridad al botiquín
                             if (personajes[indiceUsuario]->getItems(1) == "Botiquín"){
-                                cout << "¿Curar a " << personajes[numSobreviviente]->getNombre() << "?\n1. Si 2. No\n(Escribe 1 o 2)" << endl;
+                                cout << "¿Curar a " << personajes[numSobreviviente]->
+                                    getNombre() <<
+                                    "?\n1. Si 2. No\n(Escribe 1 o 2)" << endl;
                                 cin >> seleccionInt;
                                 if (seleccionInt == 1){
                                     //El usuario cura al sobreviviente
-                                    personajes[indiceUsuario]->curar(personajes[numSobreviviente], "Botiquín");
+                                    personajes[indiceUsuario]->curar(
+                                        personajes[numSobreviviente], "Botiquín");
                                 }
                             }
                             //Se checa si el usuario tiene pastillas o adrenalina
                             else{
                                 if (personajes[indiceUsuario]->getItems(2) != "-"){
-                                    cout << "Le puedes dar tu(s) " << personajes[indiceUsuario]->getItems(2) << " a " << personajes[numSobreviviente]->getNombre() << endl;
+                                    cout << "Le puedes dar tu(s) " << 
+                                        personajes[indiceUsuario]->getItems(2) << 
+                                        " a " << personajes[numSobreviviente]->
+                                        getNombre() << endl;
                                 }
                             }
                         }
@@ -319,14 +342,17 @@ void Mapa::curarMutuo(){
         }
         else{
             if (personajes[numSobreviviente]->getItems(1) == "Botiquín"){
-                personajes[numSobreviviente]->curar(personajes[numSobreviviente], "Botiquín");
+                personajes[numSobreviviente]->curar(personajes[numSobreviviente],
+                    "Botiquín");
             }
             else{
                 if (personajes[numSobreviviente]->getItems(2) == "Pastillas"){
-                    personajes[numSobreviviente]->curar(personajes[numSobreviviente], "Pastillas");
+                    personajes[numSobreviviente]->curar(personajes[numSobreviviente],
+                        "Pastillas");
                 }
                 else{
-                    personajes[numSobreviviente]->curar(personajes[numSobreviviente], "Adrenalina");
+                    personajes[numSobreviviente]->curar(personajes[numSobreviviente], 
+                        "Adrenalina");
                 }
                     
             }
@@ -334,7 +360,14 @@ void Mapa::curarMutuo(){
     }
 }
 
-
+/**
+ *Función que simula una partida gracias al uso de polimorfismo, donde los 
+ *sobrevivientes e infectados se atacan mutuamente hasta que el usuario
+ *muera, se manda llamar a las funciones escogeArmas, escogeItems, accion 
+ *y curarMutuo
+ *param
+ *return
+ */
 void Mapa::partida(){
     string seleccion;
     int acum = 0;
