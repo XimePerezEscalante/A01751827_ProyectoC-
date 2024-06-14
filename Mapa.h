@@ -16,9 +16,9 @@ using namespace std;
 class Mapa{
     //Declaración de atributos
 private:
-    int numPersonaje = 4;
-    int totalPer = 30;
-    int numSobreviviente = 0;
+    int numPersonaje;
+    int totalPer;
+    int numSobreviviente;
     int indiceUsuario;
     string select;
 public:
@@ -37,6 +37,10 @@ public:
 };
 
 Mapa::Mapa(){
+    numPersonaje = 4;
+    int totalPer = 30;
+    int numSobreviviente = 0;
+    
     Arma pist(0,30,false);
     Arma mag(1,30,false);
     Arma esc(2,80,false);
