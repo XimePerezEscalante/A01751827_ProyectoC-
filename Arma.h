@@ -22,7 +22,7 @@ private:
     //Declaración de métodos
 public:
     Arma();
-    Arma(int, int, bool);
+    Arma(int, int);
     void recargar();
     void disparo();
     void rellenarMunicion();
