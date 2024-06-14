@@ -297,41 +297,58 @@ void Mapa::curarMutuo(){
                 if (personajes[i]->getBot() == true){
                     //Se le da prioridad al botiquín, si lo tiene, 
                     //cura al infectado con poca salud
-                    if (personajes[i]->getItems(1) == "Botiquín"){personajes[i]->curar(
-                        personajes[numSobreviviente], "Botiquín");
+                    if (personajes[i]->getItems(1) ==
+                        "Botiquín"){
+                        personajes[i]->
+                            curar(
+                        personajes[numSobreviviente],
+                            "Botiquín");
                     }
                     //Se checa si tiene pastillas o adrenalina
                     else{
                         if (personajes[i]->getItems(2) != "-"){
-                            //Cura al sobreviviente pero como en el método sólo 
+                            //Cura al sobreviviente 
+                            //pero como en el método sólo 
                             //le dan los items...
-                            personajes[i]->curar(personajes[numSobreviviente], 
+                            personajes[i]->curar(
+                                personajes[numSobreviviente], 
                                 personajes[i]->getItems(2));
                             //El sobreviviente debe curarse solo
                             personajes[numSobreviviente]->
                                 curar(personajes[numSobreviviente], 
-                                personajes[numSobreviviente]->getItems(2));
+                                personajes[numSobreviviente]->
+                                getItems(2));
                         }
-                        //Si el usuario tiene items de salud se le sugiere curarlo
+                        //Si el usuario tiene items de salud se
+                        //le sugiere curarlo
                         else{
                             //Se le da prioridad al botiquín
-                            if (personajes[indiceUsuario]->getItems(1) == "Botiquín"){
-                                cout << "¿Curar a " << personajes[numSobreviviente]->
+                            if (personajes[indiceUsuario]->
+                                getItems(1) == "Botiquín"){
+                                cout << "¿Curar a " <<
+                                    personajes[numSobreviviente]->
                                     getNombre() <<
-                                    "?\n1. Si 2. No\n(Escribe 1 o 2)" << endl;
+                                    "?\n1. Si 2. No\n(Escribe 1 o 2)" <<
+                                    endl;
                                 cin >> seleccionInt;
                                 if (seleccionInt == 1){
                                     //El usuario cura al sobreviviente
-                                    personajes[indiceUsuario]->curar(
-                                        personajes[numSobreviviente], "Botiquín");
+                                    personajes[indiceUsuario]->
+                                        curar(
+                                        personajes[numSobreviviente],
+                                        "Botiquín");
                                 }
                             }
-                            //Se checa si el usuario tiene pastillas o adrenalina
+                            //Se checa si el usuario tiene pastillas 
+                            //o adrenalina
                             else{
-                                if (personajes[indiceUsuario]->getItems(2) != "-"){
+                                if (personajes[indiceUsuario]->
+                                    getItems(2) != "-"){
                                     cout << "Le puedes dar tu(s) " << 
-                                        personajes[indiceUsuario]->getItems(2) << 
-                                        " a " << personajes[numSobreviviente]->
+                                        personajes[indiceUsuario]->
+                                        getItems(2) << 
+                                        " a " << 
+                                        personajes[numSobreviviente]->
                                         getNombre() << endl;
                                 }
                             }
@@ -341,17 +358,22 @@ void Mapa::curarMutuo(){
             }
         }
         else{
-            if (personajes[numSobreviviente]->getItems(1) == "Botiquín"){
-                personajes[numSobreviviente]->curar(personajes[numSobreviviente],
+            if (personajes[numSobreviviente]->
+                getItems(1) == "Botiquín"){
+                personajes[numSobreviviente]->
+                    curar(personajes[numSobreviviente],
                     "Botiquín");
             }
             else{
-                if (personajes[numSobreviviente]->getItems(2) == "Pastillas"){
-                    personajes[numSobreviviente]->curar(personajes[numSobreviviente],
+                if (personajes[numSobreviviente]->
+                    getItems(2) == "Pastillas"){
+                    personajes[numSobreviviente]->
+                        curar(personajes[numSobreviviente],
                         "Pastillas");
                 }
                 else{
-                    personajes[numSobreviviente]->curar(personajes[numSobreviviente], 
+                    personajes[numSobreviviente]->
+                        curar(personajes[numSobreviviente], 
                         "Adrenalina");
                 }
                     
@@ -383,10 +405,12 @@ void Mapa::partida(){
     while (numPersonaje < totalPer && seguir == true){
         while (numSobreviviente < 4 && seguir == true){      
             if (personajes[numPersonaje]->getVida() > 0 ){
-                personajes[numPersonaje]->ataque(personajes[numSobreviviente]);    
+                personajes[numPersonaje]->
+                    ataque(personajes[numSobreviviente]);    
                 if (personajes[numSobreviviente]->getBot() == true){
                     if (personajes[numSobreviviente]->getVida() > 0){
-                        personajes[numSobreviviente]->ataque(personajes[numPersonaje]);
+                        personajes[numSobreviviente]->
+                            ataque(personajes[numPersonaje]);
                         curarMutuo();
                     }
                 }
