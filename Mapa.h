@@ -38,23 +38,22 @@ public:
 
 Mapa::Mapa(){
     numPersonaje = 4;
-    int totalPer = 30;
-    int numSobreviviente = 0;
-    
-    Arma pist(0,30,false);
-    Arma mag(1,30,false);
-    Arma esc(2,80,false);
-    Arma rif(3,120,false);
-    
+    totalPer = 30;
+    numSobreviviente = 0;
+    Arma pist(0,30);
+    Arma mag(1,30);
+    Arma esc(2,80);
+    Arma rif(3,120);
+
     armasMapa[0] = pist;
     armasMapa[1] = mag;
     armasMapa[2] = esc;
     armasMapa[3] = rif;
-    
+
     for (int i = 4;i < 16;i++){
         personajes[i] = new Infectado();
     }
-    
+
     personajes[16] = new InfectadoEspecial();
     personajes[17] = new InfectadoEspecial("Boomer",100.0);
     personajes[18] = new InfectadoEspecial("Spitter",100.0);
@@ -79,7 +78,7 @@ void Mapa::creaEquipo(int opcion){
         personajes[2] = new Sobreviviente("Louis", true);
         personajes[3] = new Sobreviviente("Frank", true);
     }
-        
+
     else{
         Jugador *rochelle = new Sobreviviente("Rochelle", true);
         Jugador *nick = new Sobreviviente("Nick", true);
@@ -134,7 +133,9 @@ void Mapa::escogeArmas(){
         cin >> arma_elec;
     }
     personajes[indiceUsuario]->agregaArma(armasMapa[arma_elec - 1], 1);
-    
+
+    cout << "\nEspera a que los demás elijan" << endl;
+
     for (int i = 0;i < 4;i++){
         if (personajes[i]->getBot() == true){
             personajes[i]->agregaArma(armasMapa[1], 1);
@@ -146,8 +147,10 @@ void Mapa::escogeArmas(){
             }
         }
     }
-    
-    
+
+    cout << "\n\n¡Listo!" << endl;
+
+
 }
 
 /**
@@ -188,7 +191,9 @@ void Mapa::escogeItems(){
         personajes[indiceUsuario]->setItems("Bomba", 0);
     }
     else{personajes[indiceUsuario]->setItems("Molotov", 0);}
-    
+
+    cout << "\nEspera a que los demás elijan" << endl;
+
     for (int i = 0;i < 4;i++){
         if (personajes[i]->getBot() == true){
             personajes[i]->setItems("Botiquín", 1);
@@ -200,6 +205,8 @@ void Mapa::escogeItems(){
             }
         }
     }
+
+    cout << "\n\n¡Listo!" << endl;
 }
 
 /**
@@ -221,7 +228,7 @@ void Mapa::accion(string tecla){
                 cout << personajes[indiceUsuario]->getNombre() << 
                     " lanzó un molotov" << endl;
                 }
-            
+
             for (int i = 0;i < 4;i++){
                 personajes[indiceUsuario]->ataque(
                     personajes[numPersonaje + i]);
@@ -249,7 +256,7 @@ void Mapa::accion(string tecla){
         }
         cout << "\n> ";
         cin >> numSobreviviente;
-        while (numSobreviviente < 1 && numSobreviviente > 4){
+        while (numSobreviviente < 1 || numSobreviviente > 4){
             cout << "Escoge a un sobreviviente\n> ";
             cin >> numSobreviviente;
         }
@@ -380,7 +387,7 @@ void Mapa::curarMutuo(){
                         curar(personajes[numSobreviviente], 
                         "Adrenalina");
                 }
-                    
+
             }
         }
     }
@@ -396,10 +403,10 @@ void Mapa::curarMutuo(){
  */
 void Mapa::partida(){
     string seleccion;
-    int acum = 0;
+
     bool seguir = true;
-    
-    cout << "EQUIPO:" << endl;
+
+    cout << "\n\nEQUIPO:" << endl;
     for (int i = 0;i < 4;i++){
         cout << personajes[i]->getNombre() << endl;
     }
@@ -422,7 +429,6 @@ void Mapa::partida(){
                     if (personajes[numSobreviviente]->getVida() > 0){
                         cout << "> ";
                         cin >> seleccion;
-                        cout << "> " << seleccion << endl;
                         accion(seleccion);
                     }
                 }
@@ -450,5 +456,5 @@ void Mapa::partida(){
         }
     }
 }
-                
+
 #endif /* MAPA_H */

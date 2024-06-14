@@ -28,7 +28,7 @@ public:
     virtual void recibeAtaque(float) = 0;
     virtual void agregaArma(Arma, int);
     virtual void curar(Jugador*, string);
-    
+
     void setVida(float health){vida = health;}
     void setNombre(string name){nombre = name;}
     float getVida(){return vida;}
@@ -151,8 +151,8 @@ Sobreviviente::Sobreviviente(string name, bool tipo):Jugador(name,
 
 void Sobreviviente::agregaArma(Arma weapon,int indice){
     armas[indice] = weapon;
-    cout << armas[indice].getNombre() << "ahora en el inventario" << 
-        endl;
+    cout << armas[indice].getNombre() << 
+    " ahora en el inventario" << endl;
 }
 
 /**
@@ -250,8 +250,9 @@ void Sobreviviente::recibeAtaque(float danio){
     }
     else{
         setVida(0);
-        cout << getNombre() << " ha muerto.\nSi tienes un desfibrilador
-            puedes revivirlo." << endl;
+        cout << getNombre() << " ha muerto.\n"
+            << "Si tienes un desfibrilador"
+            << "puedes revivirlo." << endl;
     }
 }
 
@@ -284,8 +285,8 @@ void Sobreviviente::curar(Jugador* survivor, string itm){
             setItems("-", 2);
         }
         else if (itm == "Desfibrilador"){
-            cout << "Sólo puedes usar un desfibrilador en tus compañeros." << 
-                endl;
+            cout << "Sólo puedes usar un desfibrilador" 
+                << "en tus compañeros." << endl;
         }
         else{
             cout << "No tienes ningún item de Salud" << endl;
@@ -328,7 +329,7 @@ void Sobreviviente::curar(Jugador* survivor, string itm){
         else{
             cout << "No tienes ningún item de Salud" << endl;
         }
-            
+
     }
 }
 
