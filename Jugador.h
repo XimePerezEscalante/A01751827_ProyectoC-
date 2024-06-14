@@ -64,7 +64,8 @@ Jugador::Jugador(string name, float health, bool tipo){
     bot = tipo;
 }
 
-Jugador::Jugador(string name, float health, string it1, string it2, string it3, bool tipo){
+Jugador::Jugador(string name, float health, string it1, 
+string it2, string it3, bool tipo){
     nombre = name;
     vida = health;
     items[0] = it1;
@@ -75,34 +76,48 @@ Jugador::Jugador(string name, float health, string it1, string it2, string it3, 
     bot = tipo;
 }
 
+/**
+ *Imprime que la función no está disponible
+ *param: apuntador de tipo Jugador e int
+ *return
+*/
 void Jugador::agregaArma(Arma weapon,int indice){
     cout << "No disponible" << endl;
 }
 
+/**
+ *Imprime que la función no está disponible
+ *param: apuntador de tipo Jugador y string
+ *return
+*/
 void Jugador::curar(Jugador* survivor, string itm){
     cout << "No disponible" << endl;
 }
 
 /**
- *Recibe un apuntador de tipo Jugador, usa el método recibeAtaque() que recibe 
- *la cantidad de daño (float).
- *Imprime el nombre del jugador que atacó, así como al atacado.
- *No devuelve nada.
+ *Usa el método recibeAtaque() que recibe la cantidad de daño 
+ *(float). Imprime el nombre del jugador que atacó, así como
+ *al atacado.
+ *param: apuntador de tipo Jugador
+ *return
 */
 void Jugador::ataque(Jugador* player){
     player->recibeAtaque(5.0);
-    cout << getNombre() << " atacó a " << player->getNombre() << endl;
+    cout << getNombre() << " atacó a " << player->getNombre() << 
+        endl;
 }
 
 /**
- *Recibe la variable danio (float).
- *Si la vida es mayor a 0, entonces le resta el daño, si no, imprime que ha muerto.
- *No devuelve nada
+ *Si la vida es mayor a 0, entonces le resta el daño, si no, 
+ *imprime que ha muerto.
+ *param: float (danio).
+ *return
  */
 void Jugador::recibeAtaque(float danio){
     if (getVida() > 0){
         setVida(getVida() - danio);
-        cout << "Jugador " << getNombre() << " -" << danio <<  " vida." << endl;
+        cout << "Jugador " << getNombre() << " -" << danio <<  
+            " vida." << endl;
         cout << getVida() << endl;
     }
     else{
@@ -124,17 +139,20 @@ public:
 
 Sobreviviente::Sobreviviente():Jugador("Bot", 100.0, true){}
 
-Sobreviviente::Sobreviviente(string name, bool tipo):Jugador(name, 100.0, tipo){}
+Sobreviviente::Sobreviviente(string name, bool tipo):Jugador(name, 
+100.0, tipo){}
 
 /**
  *Uso de agregación
- *param: objeto de tipo Arma e int del índice en el que irá el arma en el arreglo
+ *param: objeto de tipo Arma e int del índice en el que irá el 
+ *arma en el arreglo
  *return
  */
 
 void Sobreviviente::agregaArma(Arma weapon,int indice){
     armas[indice] = weapon;
-    cout << armas[indice].getNombre() << "ahora en el inventario" << endl;
+    cout << armas[indice].getNombre() << "ahora en el inventario" << 
+        endl;
 }
 
 /**
@@ -158,7 +176,8 @@ void Sobreviviente::ataque(Jugador * infected){
         setItems("-", 2);
         if (infected->getVida() <= 0){
             setInfKilled(getInfKilled() + 1);
-            cout << getNombre() << " mató a " << infected->getNombre() << endl;
+            cout << getNombre() << " mató a " << 
+                infected->getNombre() << endl;
         }
     }
     else{
@@ -180,8 +199,8 @@ void Sobreviviente::ataque(Jugador * infected){
                 }
                 if (infected->getVida() <= 0){
                     setInfKilled(getInfKilled() + 1);
-                    cout << getNombre() << " mató a " << infected->getNombre() << 
-                        endl;
+                    cout << getNombre() << " mató a " << 
+                        infected->getNombre() << endl;
                 }
             }
             else {
@@ -219,7 +238,8 @@ void Sobreviviente::recibeAtaque(float danio){
     cout << getVida() << endl;
     if (getVida() > 0){
         setVida(getVida() - danio);
-        cout << getNombre() << " -" << danio <<  " vida = " << getVida() << endl;
+        cout << getNombre() << " -" << danio <<  " vida = " << 
+            getVida() << endl;
         if (getVida() <= 30 && getVida() > 10){
             cout << getNombre() << " debe curarse." << endl;
         }
@@ -264,7 +284,8 @@ void Sobreviviente::curar(Jugador* survivor, string itm){
             setItems("-", 2);
         }
         else if (itm == "Desfibrilador"){
-            cout << "Sólo puedes usar un desfibrilador en tus compañeros." << endl;
+            cout << "Sólo puedes usar un desfibrilador en tus compañeros." << 
+                endl;
         }
         else{
             cout << "No tienes ningún item de Salud" << endl;
@@ -272,28 +293,36 @@ void Sobreviviente::curar(Jugador* survivor, string itm){
     }
     else{
         if (itm == "Botiquín"){
-            cout << getNombre() << " curó a " << survivor->getNombre() << endl;
-            survivor->setVida( survivor->getVida() + (100.0 - survivor->getVida()) * 0.8);
-            cout << survivor->getNombre() << " " << survivor->getVida() << " vida" << endl;
+            cout << getNombre() << " curó a " << survivor->getNombre() << 
+                endl;
+            survivor->setVida( survivor->getVida() + 
+                (100.0 - survivor->getVida()) * 0.8);
+            cout << survivor->getNombre() << " " << 
+                survivor->getVida() << " vida" << endl;
             setItems("-", 1);
         }
         else if (itm == "Pastillas"){
-            cout << getNombre() << " le dio pastillas a " << survivor->getNombre() << endl;
+            cout << getNombre() << " le dio pastillas a " << 
+                survivor->getNombre() << endl;
             survivor->setItems("Pastillas", 2);
         }
         else if (itm == "Adrenalina"){
-            cout << getNombre() << " le dio adrenalina a " << survivor->getNombre() << endl;
+            cout << getNombre() << " le dio adrenalina a " << 
+                survivor->getNombre() << endl;
             survivor->setItems("Adrenalina", 2);
         }
         else if (itm == "Desfibrilador"){
             if (survivor->getVida() <= 0){
-                cout << getNombre() << " revivió a " << survivor->getNombre() << endl;
+                cout << getNombre() << " revivió a " << 
+                    survivor->getNombre() << endl;
                 survivor->setVida(50.0);
-                cout << survivor->getNombre() << " " << survivor->getVida() << " vida" << endl;
+                cout << survivor->getNombre() << " " << 
+                    survivor->getVida() << " vida" << endl;
                 setItems("-", 1);
             }
             else{
-                cout << "Tranqui, " << survivor->getNombre() << " sigue viv@" << endl;
+                cout << "Tranqui, " << survivor->getNombre() << 
+                    " sigue viv@" << endl;
             }
         }
         else{
